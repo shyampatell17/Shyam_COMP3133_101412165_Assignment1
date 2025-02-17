@@ -29,8 +29,8 @@ async function startServer() {
 
         const PORT = process.env.PORT || 4000;
         app.listen(PORT, () => {
-            console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
-            console.log(`📈 GraphiQL available at http://localhost:${PORT}${server.graphqlPath}`);
+            console.log(`🚀 Server ready at https://shyam-comp-3133-101412165-assignment1.vercel.app/graphql`);
+            console.log(`📈 GraphiQL available at https://shyam-comp-3133-101412165-assignment1.vercel.app/graphql`);
         });
     } catch (error) {
         console.error('Server startup error:', error);
