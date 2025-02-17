@@ -25,13 +25,32 @@ async function startServer() {
         });
 
         await server.start();
-        server.applyMiddleware({ app });
-
-        const PORT = process.env.PORT || 4000;
-        app.listen(PORT, () => {
-            console.log(`🚀 Server ready at https://shyam-comp-3133-101412165-assignment1.vercel.app/graphql`);
-            console.log(`📈 GraphiQL available at https://shyam-comp-3133-101412165-assignment1.vercel.app/graphql`);
+        
+        // Update the cors configuration
+        server.applyMiddleware({ 
+            app,
+            path: '/graphql',
+            cors: {
+                origin: '*',
+                credentials: true
+            }
         });
+
+        // Add a root route handler
+        app.get('/', (req, res) => {
+            res.send('GraphQL API is running at /graphql');
+        });
+
+        if (process.env.NODE_ENV !== 'production') {
+            const PORT = process.env.PORT || 4000;
+            app.listen(PORT, () => {
+                console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+                console.log(`📈 GraphiQL available at http://localhost:${PORT}/graphql`);
+            });
+        }
+
+        // Export for Vercel
+        module.exports = app;
     } catch (error) {
         console.error('Server startup error:', error);
         process.exit(1);
